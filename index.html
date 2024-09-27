@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>RxTube</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One&subset=latin-ext');
+    
+    body {
+      background-color: #181818;
+      margin: 0;
+      font-family: 'Pathway Gothic One', sans-serif;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #212121;
+      padding: 15px 20px;
+      color: white;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 100;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 2.5rem;
+      width: 3.5rem;
+      background-color: #FF0000;
+      border-radius: 6px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: scale(1.1);
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-top: 1rem solid transparent;
+      border-left: 1.8rem solid white;
+      border-bottom: 1rem solid transparent;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .text {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-left: 12px;
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .icons {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 1.5rem;
+    }
+
+    .icon {
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, color 0.2s ease, background-color 0.2s ease;
+      padding: 10px;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .icon:hover {
+      color: #f44336;
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: scale(1.2);
+    }
+
+    .icon:active {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .notification-bubble {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: #f44336;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .profile-icon-container {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .profile-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: #666;
+      margin-right: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-menu {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 50px;
+      background-color: #333;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: opacity 0.3s ease;
+      opacity: 0;
+      z-index: 1000;
+      width: 200px;
+    }
+
+    .profile-menu.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .profile-menu-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #555;
+      padding-bottom: 8px;
+    }
+
+    .profile-menu-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .profile-menu-header .user-name {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+
+    .profile-menu a {
+      display: block;
+      color: white;
+      padding: 8px 10px;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .profile-menu a:hover {
+      background-color: #444;
+    }
+
+    .profile-menu a:not(:last-child) {
+      margin-bottom: 5px;
+    }
+
+    @media (max-width: 768px) {
+      .text {
+        font-size: 1.4rem;
+        margin-left: 8px;
+      }
+
+      .icons {
+        gap: 15px;
+        font-size: 1.3rem;
+      }
+
+      .logo {
+        height: 2rem;
+        width: 3rem;
+      }
+
+      .triangle {
+        border-left: 1.3rem solid white;
+        border-top: 0.65rem solid transparent;
+        border-bottom: 0.65rem solid transparent;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .logo {
+        height: 1.8rem;
+        width: 2.8rem;
+      }
+
+      .text {
+        font-size: 1.3rem;
+        margin-left: 5px;
+      }
+
+      .icons {
+        gap: 10px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo-container">
+      <div class="logo">
+        <div class="triangle"></div>
+      </div>
+      <div class="text">RxTube</div>
+    </div>
+    <div class="icons">
+      <div class="icon" id="search-icon">🔍</div>
+      <div class="icon" id="bell-icon">
+        🛎️
+        <div class="notification-bubble" id="notification-count">9+</div>
+      </div>
+      <div class="profile-icon-container" id="user-icon">
+        <div class="profile-icon">
+          👤
+        </div>
+        <div class="profile-menu" id="profile-menu">
+          <div class="profile-menu-header">
+            <img src="https://via.placeholder.com/40" alt="Profile Picture">
+            <div class="user-name">John Doe</div>
+          </div>
+          <a href="#" id="profile-link">Profile</a>
+          <a href="#" id="settings-link">Settings</a>
+          <a href="#" id="help-link">Help</a>
+          <a href="#" id="logout-link">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const userIcon = document.getElementById('user-icon');
+    const profileMenu = document.getElementById('profile-menu');
+    userIcon.addEventListener('click', function () {
+      profileMenu.classList.toggle('active');
+    });
+    document.addEventListener('click', function (event) {
+      if (!event.target.closest('.profile-icon-container')) {
+        profileMenu.classList.remove('active');
+      }
+    });
+    document.getElementById('profile-link').addEventListener('click', function() {
+      alert("Redirecting to Profile Page!");
+      window.location.href = '/profile';
+    });
+
+    document.getElementById('settings-link').addEventListener('click', function() {
+      alert("Opening Settings...");
+    });
+
+    document.getElementById('help-link').addEventListener('click', function() {
+      alert("Showing Help Section...");
+    });
+
+    document.getElementById('logout-link').addEventListener('click', function() {
+      alert("Logging out...");
+      // Simulate logout action
+      window.location.href = '/logout';
+    });
+  </script>
+</body>
+</html>
