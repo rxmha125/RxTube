@@ -6,70 +6,63 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>RxTube</title>
   <style>
-    @import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One&subset=latin-ext');
-    
+    @import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One|Roboto&display=swap');
     body {
-      background-color: #181818;
+      background-color: #121212;
+      color: #E0E0E0;
       margin: 0;
-      font-family: 'Pathway Gothic One', sans-serif;
+      font-family: 'Roboto', sans-serif;
     }
-
     .header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: #212121;
-      padding: 15px 20px;
+      background-color: #1C1C1C;
+      padding: 15px 30px;
       color: white;
       box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
-      position: relative;
+      position: sticky;
+      top: 0;
       z-index: 100;
     }
-
     .logo-container {
       display: flex;
       align-items: center;
     }
-
     .logo {
-      height: 2.5rem;
-      width: 3.5rem;
+      height: 2.8rem;
+      width: 3.8rem;
       background-color: #FF0000;
-      border-radius: 6px;
+      border-radius: 8px;
       position: relative;
       transition: transform 0.3s ease;
     }
-
     .logo:hover {
       transform: scale(1.1);
     }
-
     .triangle {
       width: 0;
       height: 0;
-      border-top: 1rem solid transparent;
-      border-left: 1.8rem solid white;
-      border-bottom: 1rem solid transparent;
+      border-top: 1.2rem solid transparent;
+      border-left: 2rem solid white;
+      border-bottom: 1.2rem solid transparent;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
     .text {
-      font-size: 1.7rem;
-      font-weight: 600;
-      margin-left: 12px;
-      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-left: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
     }
-
     .icons {
       display: flex;
       align-items: center;
-      gap: 25px;
-      font-size: 1.5rem;
+      gap: 30px;
+      font-size: 1.6rem;
     }
-
     .icon {
       cursor: pointer;
       transition: transform 0.3s ease-in-out, color 0.2s ease, background-color 0.2s ease;
@@ -77,22 +70,19 @@
       border-radius: 50%;
       position: relative;
     }
-
     .icon:hover {
-      color: #f44336;
+      color: #ff5252;
       background-color: rgba(255, 255, 255, 0.1);
-      transform: scale(1.2);
+      transform: scale(1.15);
     }
-
     .icon:active {
       background-color: rgba(255, 255, 255, 0.2);
     }
-
     .notification-bubble {
       position: absolute;
       top: 5px;
       right: 5px;
-      background-color: #f44336;
+      background-color: #ff5252;
       color: white;
       border-radius: 50%;
       width: 18px;
@@ -102,17 +92,15 @@
       align-items: center;
       font-size: 0.8rem;
     }
-
     .profile-icon-container {
       display: flex;
       align-items: center;
       cursor: pointer;
       position: relative;
     }
-
     .profile-icon {
-      width: 2rem;
-      height: 2rem;
+      width: 2.3rem;
+      height: 2.3rem;
       border-radius: 50%;
       background-color: #666;
       margin-right: 10px;
@@ -121,113 +109,150 @@
       justify-content: center;
       align-items: center;
     }
-
     .profile-icon:hover {
       transform: scale(1.1);
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
     }
-
     .profile-menu {
       display: none;
       position: absolute;
       right: 0;
       top: 50px;
       background-color: #333;
-      padding: 10px;
-      border-radius: 4px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-      transition: opacity 0.3s ease;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
       opacity: 0;
       z-index: 1000;
-      width: 200px;
+      width: 220px;
+      transition: opacity 0.3s ease;
     }
-
     .profile-menu.active {
       display: block;
       opacity: 1;
     }
-
     .profile-menu-header {
       display: flex;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       border-bottom: 1px solid #555;
-      padding-bottom: 8px;
+      padding-bottom: 10px;
     }
-
     .profile-menu-header img {
-      width: 40px;
-      height: 40px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
-      margin-right: 10px;
+      margin-right: 12px;
     }
-
     .profile-menu-header .user-name {
       color: white;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
     }
-
     .profile-menu a {
       display: block;
       color: white;
-      padding: 8px 10px;
+      padding: 10px 12px;
       text-decoration: none;
       transition: background-color 0.2s ease;
       cursor: pointer;
+      border-radius: 4px;
     }
-
     .profile-menu a:hover {
       background-color: #444;
     }
-
     .profile-menu a:not(:last-child) {
-      margin-bottom: 5px;
+      margin-bottom: 6px;
     }
-
+    iframe {
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    h2, h3 {
+      margin-left: 30px;
+    }
+    p {
+      margin-left: 30px;
+      color: #A0A0A0;
+    }
+    hr {
+      border: 0.5px solid #555;
+      margin: 20px 30px;
+    }
     @media (max-width: 768px) {
       .text {
         font-size: 1.4rem;
-        margin-left: 8px;
+        margin-left: 10px;
       }
-
       .icons {
         gap: 15px;
         font-size: 1.3rem;
       }
-
       .logo {
         height: 2rem;
         width: 3rem;
       }
-
       .triangle {
         border-left: 1.3rem solid white;
         border-top: 0.65rem solid transparent;
         border-bottom: 0.65rem solid transparent;
       }
     }
-
     @media (max-width: 480px) {
       .logo {
         height: 1.8rem;
         width: 2.8rem;
       }
-
       .text {
         font-size: 1.3rem;
-        margin-left: 5px;
+        margin-left: 8px;
       }
-
       .icons {
         gap: 10px;
         font-size: 1.2rem;
       }
+      iframe {
+        width: 90%;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+
+    /* Shorts section styling */
+    .shorts-section {
+      padding: 20px 30px;
+      background-color: #121212;
+    }
+    .shorts-grid {
+      display: flex;
+      gap: 20px;
+      justify-content: start;
+      overflow-x: auto;
+      padding: 10px 0;
+    }
+    .shorts-grid iframe {
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .responsive-iframe {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      /* 16:9 Aspect Ratio */
+      height: 0;
+    }
+
+    .responsive-iframe iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
     }
   </style>
 </head>
 <body>
-
   <div class="header">
     <div class="logo-container">
       <div class="logo">
@@ -242,12 +267,10 @@
         <div class="notification-bubble" id="notification-count">9+</div>
       </div>
       <div class="profile-icon-container" id="user-icon">
-        <div class="profile-icon">
-          👤
-        </div>
+        <div class="profile-icon">👤</div>
         <div class="profile-menu" id="profile-menu">
           <div class="profile-menu-header">
-            <img src="https://via.placeholder.com/40" alt="Profile Picture">
+            <img src="https://via.placeholder.com/45" alt="Profile Picture">
             <div class="user-name">John Doe</div>
           </div>
           <a href="#" id="profile-link">Profile</a>
@@ -259,6 +282,28 @@
     </div>
   </div>
 
+  <iframe width="340" height="187" src="https://www.youtube.com/embed/HCWvgoTfUjg?si=KCcL8bIO60ELokmA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <h3>Mind Relax song's (showed-reverb)</h3>
+  <p>rxmha • 168k views • 3 months ago</p>
+  <hr>
+
+  <h2>Shorts</h2>
+  <div class="shorts-section">
+    <div class="shorts-grid">
+      <iframe width="120" height="213" src="https://www.youtube.com/embed/GDOWfzIPgbc?rel=0" frameborder="0" allowfullscreen></iframe>
+      <iframe width="120" height="213" src="https://www.youtube.com/embed/2PbZm2L9I9o" frameborder="0" allowfullscreen></iframe>
+      <iframe width="120" height="213" src="https://www.youtube.com/embed/-7h1B7bL7sQ" frameborder="0" allowfullscreen></iframe>
+      <iframe width="120" height="213" src="https://www.youtube.com/embed/az1iICjxgpI" frameborder="0" allowfullscreen></iframe>
+      <iframe width="120" height="213" src="https://www.youtube.com/embed/gqV709YwYjE" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </div>
+  <hr>
+  <iframe width="340" height="187" src="https://www.youtube.com/embed/CJ56KrHBws0" frameborder="0" allowfullscreen></iframe>
+    <h3>Sword of Allah | Khalid bin walid | The kohistani</h3>
+  <p>The kohistani • 671k views • 4 months ago</p>
+  <iframe width="340" height="187" src="https://www.youtube.com/embed/D0_TQ_lScpg" frameborder="0" allowfullscreen></iframe>
+   <h3>Countries reaction after Bangladesh got independence in 2024</h3>
+    <p>I Am wahee • 155k views • 3 week ago</p>
   <script>
     const userIcon = document.getElementById('user-icon');
     const profileMenu = document.getElementById('profile-menu');
@@ -269,24 +314,6 @@
       if (!event.target.closest('.profile-icon-container')) {
         profileMenu.classList.remove('active');
       }
-    });
-    document.getElementById('profile-link').addEventListener('click', function() {
-      alert("Redirecting to Profile Page!");
-      window.location.href = '/profile';
-    });
-
-    document.getElementById('settings-link').addEventListener('click', function() {
-      alert("Opening Settings...");
-    });
-
-    document.getElementById('help-link').addEventListener('click', function() {
-      alert("Showing Help Section...");
-    });
-
-    document.getElementById('logout-link').addEventListener('click', function() {
-      alert("Logging out...");
-      // Simulate logout action
-      window.location.href = '/logout';
     });
   </script>
 </body>
