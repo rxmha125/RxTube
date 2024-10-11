@@ -3,318 +3,263 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>RxTube</title>
+  <title>Rx Tube</title>
   <style>
-    @import url('https://fonts.googleapis.com/css?family=Pathway+Gothic+One|Roboto&display=swap');
     body {
-      background-color: #121212;
-      color: #E0E0E0;
+      font-family: Arial, sans-serif;
       margin: 0;
-      font-family: 'Roboto', sans-serif;
+      padding: 0;
+      background-color: #f5f5f5;
     }
     .header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      background-color: #1C1C1C;
-      padding: 15px 30px;
-      color: white;
-      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.5);
+      justify-content: flex-start;
+      padding: 10px;
+      background-color: #333;
+      color: #fff;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
     }
-    .logo-container {
-      display: flex;
-      align-items: center;
-    }
-    .logo {
-      height: 2.8rem;
-      width: 3.8rem;
-      background-color: #FF0000;
-      border-radius: 8px;
-      position: relative;
-      transition: transform 0.3s ease;
-    }
-    .logo:hover {
-      transform: scale(1.1);
-    }
-    .triangle {
-      width: 0;
-      height: 0;
-      border-top: 1.2rem solid transparent;
-      border-left: 2rem solid white;
-      border-bottom: 1.2rem solid transparent;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .text {
-      font-size: 1.8rem;
-      font-weight: 700;
-      margin-left: 15px;
-      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
-    }
-    .icons {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      font-size: 1.6rem;
-    }
-    .icon {
-      cursor: pointer;
-      transition: transform 0.3s ease-in-out, color 0.2s ease, background-color 0.2s ease;
-      padding: 10px;
-      border-radius: 50%;
-      position: relative;
-    }
-    .icon:hover {
-      color: #ff5252;
-      background-color: rgba(255, 255, 255, 0.1);
-      transform: scale(1.15);
-    }
-    .icon:active {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-    .notification-bubble {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background-color: #ff5252;
-      color: white;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.8rem;
-    }
-    .profile-icon-container {
-      display: flex;
-      align-items: center;
+    .container {
+      display: inline-block;
       cursor: pointer;
       position: relative;
+      margin: 0 20px;
     }
-    .profile-icon {
-      width: 2.3rem;
-      height: 2.3rem;
-      border-radius: 50%;
-      background-color: #666;
-      margin-right: 10px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .bar1, .bar2, .bar3 {
+      width: 30px;
+      height: 5px;
+      background-color: #fff;
+      margin: 5px 0;
+      transition: 0.4s;
     }
-    .profile-icon:hover {
-      transform: scale(1.1);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-    .profile-menu {
+    .menu-dropdown {
       display: none;
       position: absolute;
-      right: 0;
-      top: 50px;
-      background-color: #333;
-      padding: 15px;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      opacity: 0;
-      z-index: 1000;
-      width: 220px;
-      transition: opacity 0.3s ease;
+      top: 100%;
+      left: 0;
+      background-color: #fff;
+      padding: 10px;
+      list-style: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
     }
-    .profile-menu.active {
-      display: block;
-      opacity: 1;
+    .menu-dropdown li {
+      margin: 5px 0;
     }
-    .profile-menu-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #555;
-      padding-bottom: 10px;
-    }
-    .profile-menu-header img {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      margin-right: 12px;
-    }
-    .profile-menu-header .user-name {
-      color: white;
-      font-size: 1.2rem;
-      font-weight: bold;
-    }
-    .profile-menu a {
-      display: block;
-      color: white;
-      padding: 10px 12px;
+    .menu-dropdown a {
+      color: #333;
       text-decoration: none;
-      transition: background-color 0.2s ease;
+      padding: 5px 10px;
+      display: block;
+      transition: background-color 0.3s;
+    }
+    .menu-dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+    .change .bar1 {
+      transform: translate(0, 11px) rotate(-45deg);
+    }
+    .change .bar2 {
+      opacity: 0;
+    }
+    .change .bar3 {
+      transform: translate(0, -11px) rotate(45deg);
+    }
+    .video-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .h2, .h2-2 {
+      text-align: center;
+      color: #333;
+    }
+    .span {
+      background-color: #FF0707;
+      color: white;
+      padding: 4px;
+      border-radius: 6px;
+    }
+    .sub {
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: 1px solid green;
+      background-color: forestgreen;
       cursor: pointer;
-      border-radius: 4px;
+      color: white;
     }
-    .profile-menu a:hover {
-      background-color: #444;
+    #src{
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: 1px solid green;
     }
-    .profile-menu a:not(:last-child) {
-      margin-bottom: 6px;
-    }
-    iframe {
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-    h2, h3 {
-      margin-left: 30px;
-    }
-    p {
-      margin-left: 30px;
-      color: #A0A0A0;
-    }
-    hr {
-      border: 0.5px solid #555;
-      margin: 20px 30px;
-    }
-    @media (max-width: 768px) {
-      .text {
-        font-size: 1.4rem;
-        margin-left: 10px;
-      }
-      .icons {
-        gap: 15px;
-        font-size: 1.3rem;
-      }
-      .logo {
-        height: 2rem;
-        width: 3rem;
-      }
-      .triangle {
-        border-left: 1.3rem solid white;
-        border-top: 0.65rem solid transparent;
-        border-bottom: 0.65rem solid transparent;
-      }
-    }
-    @media (max-width: 480px) {
-      .logo {
-        height: 1.8rem;
-        width: 2.8rem;
-      }
-      .text {
-        font-size: 1.3rem;
-        margin-left: 8px;
-      }
-      .icons {
-        gap: 10px;
-        font-size: 1.2rem;
-      }
-      iframe {
-        width: 90%;
-        margin: 0 auto;
-        display: block;
-      }
-    }
-
-    /* Shorts section styling */
-    .shorts-section {
-      padding: 20px 30px;
-      background-color: #121212;
-    }
-    .shorts-grid {
+    #videoResults {
       display: flex;
+      flex-wrap: wrap;
       gap: 20px;
-      justify-content: start;
-      overflow-x: auto;
-      padding: 10px 0;
     }
-    .shorts-grid iframe {
+    .video-item {
+      flex: 1 1 45%;
+      position: relative;
+      background-color: #f0f0f0;
+      padding: 10px;
       border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
     }
-
-    .responsive-iframe {
+    .video-item:hover {
+      transform: scale(1.05);
+    }
+    .video-wrapper {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%;
-      /* 16:9 Aspect Ratio */
-      height: 0;
+      padding-top: 56.25%;
     }
-
-    .responsive-iframe iframe {
+    .video-wrapper iframe {
       position: absolute;
-      width: 100%;
-      height: 100%;
       top: 0;
       left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .dark-mode {
+      background-color: #333;
+      color: #fff;
+    }
+    .dark-mode .header {
+      background-color: #222;
+    }
+    .dark-mode .sub {
+      background-color: darkgreen;
+      border-color: darkgreen;
+    }
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="logo-container">
-      <div class="logo">
-        <div class="triangle"></div>
-      </div>
-      <div class="text">RxTube</div>
-    </div>
-    <div class="icons">
-      <div class="icon" id="search-icon">🔍</div>
-      <div class="icon" id="bell-icon">
-        🛎️
-        <div class="notification-bubble" id="notification-count">9+</div>
-      </div>
-      <div class="profile-icon-container" id="user-icon">
-        <div class="profile-icon">👤</div>
-        <div class="profile-menu" id="profile-menu">
-          <div class="profile-menu-header">
-            <img src="https://via.placeholder.com/45" alt="Profile Picture">
-            <div class="user-name">John Doe</div>
-          </div>
-          <a href="#" id="profile-link">Profile</a>
-          <a href="#" id="settings-link">Settings</a>
-          <a href="#" id="help-link">Help</a>
-          <a href="#" id="logout-link">Logout</a>
-        </div>
-      </div>
-    </div>
+<div class="header">
+  <div class="container" onclick="toggleMenu(this)">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+    <ul class="menu-dropdown">
+      <li><a href="#home" onclick="animateClick(this)">Home</a></li>
+      <li><a href="#about" onclick="animateClick(this)">About Us</a></li>
+      <li><a href="#contact" onclick="animateClick(this)">Contact</a></li>
+    </ul>
   </div>
+  <button onclick="toggleTheme()">Dark/Light Mode</button>
+</div>
 
-  <iframe width="340" height="187" src="https://www.youtube.com/embed/HCWvgoTfUjg?si=KCcL8bIO60ELokmA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-  <h3>Mind Relax song's (showed-reverb)</h3>
-  <p>rxmha • 168k views • 3 months ago</p>
-  <hr>
+<h2 class="h2-2">RX <span class="span">Tube</span></h2>
 
-  <h2>Shorts</h2>
-  <div class="shorts-section">
-    <div class="shorts-grid">
-      <iframe width="120" height="213" src="https://www.youtube.com/embed/GDOWfzIPgbc?rel=0" frameborder="0" allowfullscreen></iframe>
-      <iframe width="120" height="213" src="https://www.youtube.com/embed/2PbZm2L9I9o" frameborder="0" allowfullscreen></iframe>
-      <iframe width="120" height="213" src="https://www.youtube.com/embed/-7h1B7bL7sQ" frameborder="0" allowfullscreen></iframe>
-      <iframe width="120" height="213" src="https://www.youtube.com/embed/az1iICjxgpI" frameborder="0" allowfullscreen></iframe>
-      <iframe width="120" height="213" src="https://www.youtube.com/embed/gqV709YwYjE" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </div>
-  <hr>
-  <iframe width="340" height="187" src="https://www.youtube.com/embed/CJ56KrHBws0" frameborder="0" allowfullscreen></iframe>
-    <h3>Sword of Allah | Khalid bin walid | The kohistani</h3>
-  <p>The kohistani • 671k views • 4 months ago</p>
-  <iframe width="340" height="187" src="https://www.youtube.com/embed/D0_TQ_lScpg" frameborder="0" allowfullscreen></iframe>
-   <h3>Countries reaction after Bangladesh got independence in 2024</h3>
-    <p>I Am wahee • 155k views • 3 week ago</p>
-  <script>
-    const userIcon = document.getElementById('user-icon');
-    const profileMenu = document.getElementById('profile-menu');
-    userIcon.addEventListener('click', function () {
-      profileMenu.classList.toggle('active');
-    });
-    document.addEventListener('click', function (event) {
-      if (!event.target.closest('.profile-icon-container')) {
-        profileMenu.classList.remove('active');
-      }
-    });
-  </script>
+<section class="video-container">
+  <input type="search" id="src" placeholder="Search video">
+  <button type="submit" class="sub" onclick="searchVideos()">Search</button>
+  <div class="loader" id="loader" style="display: none;"></div>
+  <h2 class="h2">Featured Videos</h2>
+  <div id="videoResults"></div>
+</section>
+
+<script>
+  const API_KEY = 'AIzaSyB3pN-ueQv_08HIItsaKTo6mUs5TwVXDMc';
+
+  // Toggle Dark/Light Mode
+  function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+  }
+
+  // Regions array for randomization
+  const regions = ['US', 'CA', 'GB', 'IN', 'JP', 'AU', 'BR'];
+
+  // Fetch and display popular videos on page load
+  window.onload = function() {
+    fetchRandomPopularVideos();
+  };
+
+  // Function to fetch popular videos from a random region
+  function fetchRandomPopularVideos() {
+    const randomRegion = regions[Math.floor(Math.random() * regions.length)];
+    console.log("Fetching videos from region:", randomRegion); // For debugging
+    document.getElementById('loader').style.display = 'block';
+
+    fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&maxResults=5&regionCode=${randomRegion}&key=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('loader').style.display = 'none';
+        const videoResults = document.getElementById('videoResults');
+        videoResults.innerHTML = ''; // Clear previous results
+        data.items.forEach(item => {
+          const videoId = item.id;
+          const videoTitle = item.snippet.title;
+          const videoItem = document.createElement('div');
+          videoItem.classList.add('video-item');
+          videoItem.innerHTML = `
+            <div class="video-wrapper">
+              <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <h3>${videoTitle}</h3>
+          `;
+          videoResults.appendChild(videoItem);
+        });
+      })
+      .catch(error => {
+        document.getElementById('loader').style.display = 'none';
+        console.error('Error fetching popular YouTube videos:', error);
+      });
+  }
+
+  // Search for videos based on the user's query
+  function searchVideos() {
+    const query = document.getElementById('src').value;
+    if (!query) return;
+    document.getElementById('loader').style.display = 'block';
+    fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults=5&q=${query}&key=${API_KEY}`)
+      .then(response => response.json())
+      .then(data => {
+        document.getElementById('loader').style.display = 'none';
+        const videoResults = document.getElementById('videoResults');
+        videoResults.innerHTML = ''; // Clear previous results
+        if (data.items.length === 0) {
+          videoResults.innerHTML = '<p>No videos found</p>';
+        } else {
+          data.items.forEach(item => {
+            const videoId = item.id.videoId;
+            const videoTitle = item.snippet.title;
+            const videoItem = document.createElement('div');
+            videoItem.classList.add('video-item');
+            videoItem.innerHTML = `
+              <div class="video-wrapper">
+                <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allowfullscreen></iframe>
+              </div>
+              <h3>${videoTitle}</h3>
+            `;
+            videoResults.appendChild(videoItem);
+          });
+        }
+      })
+      .catch(error => {
+        document.getElementById('loader').style.display = 'none';
+        console.error('Error fetching YouTube videos:', error);
+      });
+  }
+</script>
 </body>
 </html>
