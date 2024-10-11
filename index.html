@@ -163,6 +163,7 @@
       <li><a href="#home" onclick="animateClick(this)">Home</a></li>
       <li><a href="#about" onclick="animateClick(this)">About Us</a></li>
       <li><a href="#contact" onclick="animateClick(this)">Contact</a></li>
+      <li><a href="#" onclick="logout()">Log Out</a></li> <!-- Log Out Button -->
     </ul>
   </div>
   <button onclick="toggleTheme()">Dark/Light Mode</button>
@@ -259,6 +260,17 @@
         document.getElementById('loader').style.display = 'none';
         console.error('Error fetching YouTube videos:', error);
       });
+  }
+
+  // Log Out function to redirect to the specified URL
+  function logout() {
+    window.location.href = 'https://fbbrx.netlify.app';
+  }
+
+  function toggleMenu(x) {
+    x.classList.toggle("change");
+    const dropdown = document.querySelector('.menu-dropdown');
+    dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
   }
 </script>
 </body>
